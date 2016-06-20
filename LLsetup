@@ -1,0 +1,16 @@
+#!/bin/bash
+
+
+##Setup BTsync
+wget https://download-cdn.getsync.com/stable/linux-x64/BitTorrent-Sync_x64.tar.gz
+mkdir ~/Documents/btsync
+tar -zxvf BitTorrent-Sync_x64.tar.gz -C ~/Documents/btsync
+rm BitTorrent-Sync_x64.tar.gz
+chmod +x ~/Document/btsync/btsync
+#add to /etc/rc.local ./home/arthur/Documents/btsync/btsync
+
+
+##Setup Slack
+wget https://downloads.slack-edge.com/linux_releases/slack-desktop-2.0.6-amd64.deb
+sudo dpkg -i slack-desktop-2.0.6-amd64.deb
+rm slack-desktop-2.0.6-amd64.deb
