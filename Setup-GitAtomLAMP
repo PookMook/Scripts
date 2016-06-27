@@ -1,0 +1,21 @@
+#!/bin/sh
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install terminator git chromium-browser -y
+wget https://github.com/atom/atom/releases/download/v1.8.0/atom-amd64.deb
+sudo dpkg -i atom-amd64.deb
+rm atom-amd64.deb
+cd ~/Documents/
+mkdir git
+cd git
+#clone git repo here
+
+sudo apt-get install apache2 mysql-server phpmyadmin openssl ssl-cert php7.0 libapache2-mod-php7.0 php7.0-mysql php7.0-curl php7.0-gd php7.0-mcrypt php-mbstring
+sudo openssl req $@ -new -x509 -days 365 -nodes -out /etc/apache2/apache.pem -keyout /etc/apache2/apache.pem
+sudo chmod 600 /etc/apache2/apache.pem
+sudo a2enmod ssl
+sudo a2ensite default-ssl
+sudo /etc/init.d/apache2 restart
+sudo rm -R html/
+cd ~/Documents/git/LaunchLeap/
+sudo ln -s src/ /var/www/html
