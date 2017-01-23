@@ -21,6 +21,7 @@ sudo cp default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
 cd /var/www/
 sudo rm -R html/
 cd ~/Documents/git/LaunchLeap/
+#attention permission root
 sudo ln -s src/ /var/www/html
 
 sudo /etc/init.d/apache2 restart
