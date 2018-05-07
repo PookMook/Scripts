@@ -33,4 +33,4 @@ docker-compose --version
 node -v
 
 echo "add the following public key to your github account :"
-cat ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub
