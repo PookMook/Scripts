@@ -34,3 +34,13 @@ node -v
 
 echo "add the following public key to your github account :"
 cat ~/.ssh/id_rsa.pub
+
+
+#add crontab for backup
+#write out current crontab
+crontab -l > mycron
+#echo new cron into cron file
+echo "00 02 * * * /home/arthur/Documents/git/Scipts/backup.sh" >> mycron
+#install new cron file
+crontab mycron
+rm mycron
