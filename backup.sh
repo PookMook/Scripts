@@ -10,6 +10,6 @@ cd /backup
 tar -zcvf "juchereau.com-old/$(date '+%Y-%m-%d').tar.gz" juchereau.com
 
 #Cleanup files
-cd /backup/juchereau-old
+cd /backup/juchereau.com-old
 echo "to be removed :"
 find ./* -name '????-??-01.*' -prune -o -mtime +7 -exec rm {} \;
