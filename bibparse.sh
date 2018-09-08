@@ -9,11 +9,11 @@ fi
 
 for filename in ${1}/*.bib; do
 # remove previous keywords
-    sed -Ei 's/keywords = \{[a-zA-Z0-9\,\ ]*\},?//g' $filename
+    #sed -Ei 's/keywords = \{[a-zA-Z0-9\,\ ]*\},?//g' $filename
 
 # Generate new keywords
     echo "path : $filename"
     FILE=${filename##*/}
-    gawk -v filename="${FILE%%.bib}" -I 'match($0, /@([a-zA-Z0-9]+){([a-zA-Z0-9]+),/, m){ print "@"m[1]"{"m[2]",\nkeywords = {article/"filename",cleBib/"m[2]"},\n"}' $filename
+    cat $filename | gawk -v filename=${FILE%%.bib} '{ print gensub(/@([a-zA-Z0-9]+)\{([a-zA-Z0-9]+),/, "@\\1{\\2,\nkeywords = {cleBib/\\2, article/"filename"},\n", "g") }' > ${1}-clean/${FILE}
 
 done
