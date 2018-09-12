@@ -21,7 +21,7 @@ for file in os.listdir(folder):
                 entry['keywords'] = entry.get('keywords', '')
                 entry['keyword'] = entry.get('keyword', '')
                 if(entry['keyword'] != ''):
-                    entry['keywords'] = 'cleBib/' + entry['ID'] + ', article/' + file + ', ' + entry['keyword']
+                    entry['keywords'] = 'cleBib/' + entry['ID'] + ', article/' + os.path.splitext(file)[0] + ', ' + entry['keyword']
                 else:
                     entry['keywords'] = 'cleBib/' + entry['ID'] + ', article/' + os.path.splitext(file)[0]
                 del entry['keyword']
