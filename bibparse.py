@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os, sys, bibtexparser
+import os, sys, re, bibtexparser
 
 
 
@@ -15,7 +15,9 @@ for file in os.listdir(folder):
     if file.endswith(".bib"):
         print(os.path.join(folder, file))
         with open(os.path.join(folder, file)) as bibtex_file:
-            bib_database = bibtexparser.load(bibtex_file)
+            content = bibtex_file.read()
+            bibtex_multiline = re.sub("(,)", "\\1\n", content)
+            bib_database = bibtexparser.loads(bibtex_multiline)
             for entry in bib_database.entries:
                 # For some reason, keywords => keyword in bibtexparser
                 entry['keywords'] = entry.get('keywords', '')
