@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os, sys, bibtexparser
+from bibtexparser.bparser import BibTexParser
 from bibtexparser.bwriter import BibTexWriter
 
 
@@ -23,12 +24,16 @@ writer.contents = ['entries']
 writer.indent = '  '
 writer.order_entries_by = ('ENTRYTYPE', 'author', 'year')
 
+#parser customization
+parser = BibTexParser()
+parser.common_strings = True
+
 print 'Parsing files in '+folder+'/'
 for file in os.listdir(folder):
     if file.endswith(".bib"):
         print(os.path.join(folder, file))
         with open(os.path.join(folder, file)) as bibtex_file:
-            bib_database = bibtexparser.load(bibtex_file)
+            bib_database = bibtexparser.load(bibtex_file, parser)
             for entry in bib_database.entries:
                 entry['keywords'] = entry.get('keywords', '')
                 if(entry['keywords'] != ''):
