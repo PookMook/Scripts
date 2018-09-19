@@ -33,6 +33,7 @@ for file in os.listdir(folder):
     if file.endswith(".bib"):
         print(os.path.join(folder, file))
         with open(os.path.join(folder, file)) as bibtex_file:
+            bib_database = bibtexparser.bparser.BibTexParser(common_strings=True).parse_file(bibtex_file)
             bib_database = bibtexparser.load(bibtex_file, parser)
             for entry in bib_database.entries:
                 entry['keywords'] = entry.get('keywords', '')
