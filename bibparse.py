@@ -28,12 +28,28 @@ writer.order_entries_by = ('ENTRYTYPE', 'author', 'year')
 parser = BibTexParser()
 parser.common_strings = True
 
+#Bib dictionary for months
+Months = """@STRING{ jan = "jan"}
+@STRING{ feb = "feb"}
+@STRING{ mar = "mar"}
+@STRING{ apr = "apr"}
+@STRING{ may = "may"}
+@STRING{ jun = "jun"}
+@STRING{ jul = "jul"}
+@STRING{ aug = "aug"}
+@STRING{ sep = "sep"}
+@STRING{ oct = "oct"}
+@STRING{ nov = "nov"}
+@STRING{ dec = "dec"}
+"""
+
 print 'Parsing files in '+folder+'/'
 for file in os.listdir(folder):
     if file.endswith(".bib"):
         print(os.path.join(folder, file))
         with open(os.path.join(folder, file)) as bibtex_file:
-            bib_database = bibtexparser.load(bibtex_file, parser)
+            content = Months + bibtex_file.read()
+            bib_database = bibtexparser.loads(content, parser)
             for entry in bib_database.entries:
                 entry['keywords'] = entry.get('keywords', '')
                 if(entry['keywords'] != ''):
