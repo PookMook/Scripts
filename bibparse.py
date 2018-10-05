@@ -3,7 +3,8 @@
 import os, sys, bibtexparser
 from bibtexparser.bparser import BibTexParser
 from bibtexparser.bwriter import BibTexWriter
-
+import logging
+logging.basicConfig()
 
 folder=sys.argv[1] if len(sys.argv) > 1 else "bib"
 
@@ -24,9 +25,9 @@ writer.contents = ['entries']
 writer.indent = '  '
 writer.order_entries_by = ('ENTRYTYPE', 'author', 'year')
 
-#parser customization
-parser = BibTexParser()
-parser.common_strings = True
+#parser customization, need a new parser for each file
+#parser = BibTexParser()
+#parser.common_strings = True
 
 #Bib dictionary for months
 Months = """@STRING{ jan = "jan"}
@@ -49,8 +50,11 @@ for file in os.listdir(folder):
         print(os.path.join(folder, file))
         with open(os.path.join(folder, file)) as bibtex_file:
             content = Months + bibtex_file.read()
+            parser = BibTexParser()
+            parser.common_strings = True
             bib_database = bibtexparser.loads(content, parser)
             for entry in bib_database.entries:
+                #print(entry['ID'])
                 entry['keywords'] = entry.get('keywords', '')
                 if(entry['keywords'] != ''):
                     entry['keywords'] = 'cleBib/' + entry['ID'] + ', article/' + os.path.splitext(file)[0] + ', ' + entry['keywords']
